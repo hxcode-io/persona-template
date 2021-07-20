@@ -21,7 +21,7 @@
         </ul>
       </div>
     </div>
-    <div v-if="person" id="personaDetail" class="absolute top-0 left-0 h-screen w-full" @click="person = undefined">
+    <div Xv-if="person" id="personaDetail" class="absolute top-0 left-0 h-screen w-full" :class="{ visibleAnim: showModal, hiddenAnim: !showModal}" @click="hide">
       <div id="modal" class="mx-auto mt-24 h-5/6 flex flex-row justify-between">
         <div class="column card">
           <div class="mx-auto flex-none bg-white rounded-full flex items-center justify-center mb-4" style="width: 9.6rem; height: 9.6rem">
@@ -29,11 +29,11 @@
           </div>
           <h2 class="text-center text-3xl font-extrabold tracking-tight">{{ person.name }}</h2>
           <h2 class="text-base text-center text-indigo-600 mt-1">{{ person.role }}</h2>
-          <div class="mt-24 px-12 text-5xl italic text-indigo-600">"</div>
-          <div class="italic text-center leading-7 -mt-3 px-12 py-2">
-            I'm looking for a site that will simplify the planning of my business trip.
+          <div class="text-gray-400 mt-24 px-12 text-5xl italic">"</div>
+          <div class="italic text-gray-600 text-center leading-7 -mt-3 px-12 py-2">
+            I'm looking for a site that will simplify the planning of my business trips.
           </div>
-          <div class="mt-1 text-right px-12 text-5xl italic text-indigo-600">"</div>
+          <div class="mt-1 text-right px-12 text-5xl italic text-gray-400">"</div>
         </div>
         <div class="column flex flex-col">
           <div class="card mb-5">
@@ -153,12 +153,17 @@ export default defineComponent({
   setup() {
     return {
       people,
-      person: ref({})
+      person: ref({}),
+      showModal: ref(false)
     }
   },
   methods: {
     show(person) {
       this.person = person;
+      this.showModal = true;
+    },
+    hide() {
+      this.showModal = false;
     }
   }
 })
@@ -166,7 +171,7 @@ export default defineComponent({
 
 <style>
 #app {
-  @apply relative
+  @apply relative subpixel-antialiased;
 }
 .personaCard:hover img {
   @apply transition transform -translate-x-1 -translate-y-1
@@ -176,7 +181,6 @@ export default defineComponent({
 }
 
 #personaDetail {
-  /*background-color: rgba(0, 0, 0, 0.22);*/
   @apply bg-white;
   top: 0;
   left: 0;
@@ -187,17 +191,19 @@ export default defineComponent({
   z-index: 1001;
   width: 1300px;
   max-width: 1300px;
-  animation: modalAnimation 100ms linear;
   border-radius: 20px;
 }
 
-@keyframes modalAnimation {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 100%;
-  }
+.visibleAnim {
+  visibility: visible;
+  opacity: 1;
+  transition: opacity 200ms linear;
+}
+
+.hiddenAnim {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s 200ms, opacity 200ms linear;
 }
 
 #modal ul li::before {
@@ -213,7 +219,7 @@ export default defineComponent({
   width: 32%;
 }
 .card {
-  @apply bg-indigo-100 rounded-lg p-8;
+  @apply bg-gradient-to-br from-indigo-50 to-indigo-100 rounded-lg shadow p-8;
 }
 .card p {
   @apply my-2 text-gray-600;
