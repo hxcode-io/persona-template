@@ -1,0 +1,22 @@
+/* ./src/index.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    html {
+        @apply h-screen;
+    }
+    body {
+        @apply bg-gray-100 h-screen;
+    }
+    #app {
+        @apply min-h-full;
+    }
+    h1 {
+        @apply text-4xl my-2;
+    }
+    h2 {
+        @apply text-xl my-2;
+    }
+}
