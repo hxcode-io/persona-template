@@ -21,14 +21,15 @@
         </ul>
       </div>
     </div>
-    <div Xv-if="person" id="personaDetail" class="absolute top-0 left-0 h-screen w-full" :class="{ visibleAnim: showModal, hiddenAnim: !showModal}" @click="hide">
-      <div id="modal" class="mx-auto mt-24 h-5/6 flex flex-row justify-between">
+    <div id="personaDetail" class="absolute top-0 left-0 h-screen w-full flex justify-center items-center"
+         :class="{ visibleAnim: showModal, hiddenAnim: !showModal}" @click="hide">
+      <div id="modal" class="flex flex-row justify-between" style="min-height: 500px">
         <div class="column card">
           <div class="mx-auto flex-none bg-white rounded-full flex items-center justify-center mb-4" style="width: 9.6rem; height: 9.6rem">
             <img class="rounded-full w-36 h-36" :src="person.imageUrl" alt="">
           </div>
-          <h2 class="text-center text-3xl font-extrabold tracking-tight">{{ person.name }}</h2>
-          <h2 class="text-base text-center text-indigo-600 mt-1">{{ person.role }}</h2>
+          <h2 class="text-center font-extrabold tracking-tight">{{ person.name }}</h2>
+          <div class="text-base text-center text-indigo-600 -mt-3">{{ person.role }}</div>
           <div class="text-gray-400 mt-24 px-12 text-5xl italic">"</div>
           <div class="italic text-gray-600 text-center leading-7 -mt-3 px-12 py-2">
             I'm looking for a site that will simplify the planning of my business trips.
@@ -50,16 +51,11 @@
             </p>
           </div>
           <div class="card flex-1">
-            <h2>Personality</h2>
-
-            <div class="flex justify-between text-sm text-gray-600 mb-1">
-              <span>Introvert</span>
-              <span>Extrovert</span>
-            </div>
-            <div class="h-4 bg-indigo-200 relative rounded-lg">
-              <span class="inline-block absolute bg-indigo-800 h-full" style="width: 14px; left: 30%"></span>
-            </div>
-
+            <h2>Goals</h2>
+            <ul>
+              <li>To spend less time booking travel</li>
+              <li>To narrow her options quickly</li>
+            </ul>
           </div>
         </div>
         <div class="column flex flex-col">
@@ -72,16 +68,11 @@
             </ul>
           </div>
           <div class="card flex-1">
-            <h2>Goals</h2>
-            <ul>
-              <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</li>
-              <li>Lorem ipsum dolor sit amet.</li>
-              <li>Lorem ipsum dolor sit amet.</li>
-              <li>Lorem ipsum dolor sit.</li>
-              <li>Lorem ipsum dolor sit.</li>
-              <li>Lorem ipsum dolor sit.</li>
-              <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</li>
-            </ul>
+            <h2>Personality</h2>
+            <slider left-label="Introvert" right-label="Extrovert" percent="30" class="mb-5 mt-6"/>
+            <slider left-label="Analytical" right-label="Creative" percent="85" class="mb-5"/>
+            <slider left-label="Loyal" right-label="Fickle" percent="10" class="mb-5"/>
+            <slider left-label="Passive" right-label="Active" percent="60" class="mb-5"/>
           </div>
         </div>
       </div>
@@ -91,7 +82,7 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
-import HelloWorld from './components/HelloWorld.vue'
+import Slider from './components/Slider.vue'
 
 const people = [
   {
@@ -148,7 +139,7 @@ const people = [
 export default defineComponent({
   name: 'App',
   components: {
-    HelloWorld
+    Slider
   },
   setup() {
     return {
